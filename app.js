@@ -10,6 +10,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
 // Define un endpoint que devuelve "Hola, mundo!"
 app.get('/', (req, res) => {
