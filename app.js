@@ -11,13 +11,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-
-// Define un endpoint que devuelve "Hola, mundo!"
-app.get('/', (req, res) => {
-  res.send({mensaje: "hola mundo"});
-});
-
-app.use("/notes", notesRoutes)
+app.use("/api/notes", notesRoutes)
 
 const port = process.env.PORT || 3000;
 
