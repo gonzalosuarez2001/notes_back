@@ -1,14 +1,13 @@
-const { Pool } = require("pg");
+const { Sequelize } = require("sequelize");
 
-// Configuracion de la conexión a la base de datos en ElephantSQL
-const pool = new Pool({
-  user: "gudunwmf",
+const sequelize = new Sequelize("gudunwmf", "gudunwmf", "7WKJspqlOfVsHSZ62Jo-dXpIXVnwNr5F", {
   host: "drona.db.elephantsql.com",
-  database: "gudunwmf",
-  password: "7WKJspqlOfVsHSZ62Jo-dXpIXVnwNr5F",
-  port: 5432,
-  ssl: true,
+  dialect: "postgres",
+  logging: false,
 });
 
-module.exports = { pool };
+sequelize.sync({ alter: true }).then(() => {
+  console.log("Base de datos y tablas creadas");
+});
 
+module.exports = sequelize;

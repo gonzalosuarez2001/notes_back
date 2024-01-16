@@ -1,20 +1,31 @@
-const express = require('express');
-const cors = require('cors');
-const notesRoutes = require('./routes/notesRoutes');
+const express = require("express");
+const session = require("express-session");
+const cors = require("cors");
+const notesRoutes = require("./src/Routes/notesRoutes");
 
 const app = express();
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Reemplaza con la URL de tu frontend en Netlify
-  optionsSuccessStatus: 200, // Algunos navegadores antiguos (IE11) interceptan las respuestas CORS con un código 204
+  origin: "http://localhost:5173",
+  optionsSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions));
+//Middlewares
+app.use(
+  session({
+    secret: "123",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 app.use(express.json());
-app.use("/api/notes", notesRoutes)
+app.use(cors(corsOptions));
 
+//Rutas
+app.use("/api/notes", notesRoutes);
+
+//Puerto
 const port = process.env.PORT || 3000;
-
 app.listen(port, () => {
   console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
