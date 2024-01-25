@@ -1,31 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const notesController = require("../Controllers/notesController");
+const noteController = require("../Controllers/noteController");
 
-router.get("/:id", async (req, res) => {
-  const notes = await notesController.getNotes(req.params.id);
-  res.json(notes);
+router.get("/", async (req, res) => {
+  const user_id = req.userId;
+  const notes = await noteController.getNotes(user_id);
+  res.send(notes);
 });
 
-router.post("/:id", async (req, res) => {
-  try {
-    const user_id = req.params.id;
-    const content = req.body.content;
-    const response = await notesController.addNote(user_id, content);
-    res.send(response);
-  } catch (error) {
-    res.status(500).json({ error: "Error al guardar nota" });
-  }
+router.post("/", async (req, res) => {
+  const createdNote = await noteController.addNote(req.userId, req.body.note);
+  res.send(createdNote);
+});
+
+router.patch("/", async (req, res) => {
+  const response = await noteController.updateNote(req.body.note);
+  res.send({ response });
 });
 
 router.delete("/", async (req, res) => {
-  try {
-    const note_id = req.body.id;
-    const response = await notesController.deleteNote(note_id);
-    res.send(response);
-  } catch (error) {
-    res.status(500).json({ error: "Error al guardar nota" });
-  }
+  const response = await noteController.deleteNote(req.body.id);
+  res.send({ response });
 });
 
 module.exports = router;
