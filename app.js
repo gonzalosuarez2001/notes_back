@@ -13,6 +13,9 @@ const corsOptions = {
 };
 
 //Middlewares
+app.use(express.json());
+app.use(cors(corsOptions));
+
 function verificarToken(req, res, next) {
   const token = req.header("Authorization").replace("Bearer ", "");
   jwt.verify(token, "123", (error, decoded) => {
@@ -24,13 +27,10 @@ function verificarToken(req, res, next) {
     }
   });
 }
-app.use(express.json());
-app.use(cors(corsOptions));
 
 //Rutas
 app.use("/api/auth", authRoutes);
-app.use("/api/notes", verificarToken);
-app.use("/api/notes", notesRoutes);
+app.use("/api/notes", verificarToken, notesRoutes);
 
 //Puerto
 const port = process.env.PORT || 3000;
