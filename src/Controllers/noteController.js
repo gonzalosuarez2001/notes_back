@@ -1,7 +1,7 @@
 const noteRepository = require("../Repository/noteRepository");
 
-async function getNotes(user_id) {
-  const notes = await noteRepository.getNotes(user_id);
+async function getNotes(req, res) {
+  const notes = await noteRepository.getNotes(req.userId);
 
   const formattedNotes = notes.map((note) => {
     return {
@@ -13,22 +13,26 @@ async function getNotes(user_id) {
     };
   });
 
-  return formattedNotes;
+  res.send(formattedNotes);
 }
 
-async function addNote(user_id, note) {
-  const createdNote = await noteRepository.addNote(user_id, note);
-  return createdNote;
+async function addNote(req, res) {
+  const createdNote = await noteRepository.addNote(req.userId, req.body.note);
+  res.send({
+    msg: `La nota se creo correctamente, id: ${createdNote.dataValues.id}`,
+  });
 }
 
-async function updateNote(note) {
-  const response = await noteRepository.updateNote(note);
-  return response;
+async function updateNote(req, res) {
+  await noteRepository.updateNote(req.body.note);
+  res.send({
+    msg: `La nota con id ${req.body.note.id} se actualizo correctamente.`,
+  });
 }
 
-async function deleteNote(note_id) {
-  const response = await noteRepository.deleteNote(note_id);
-  return response;
+async function deleteNote(req, res) {
+  await noteRepository.deleteNote(req.body.id);
+  res.send({ msg: `La nota con id ${req.body.id} se elimino correctamente` });
 }
 
 module.exports = { getNotes, addNote, updateNote, deleteNote };

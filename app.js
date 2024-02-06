@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const authRoutes = require("./src/Routes/authRoutes");
+const userRoutes = require("./src/Routes/userRoutes");
 const notesRoutes = require("./src/Routes/notesRoutes");
 
 const app = express();
@@ -23,6 +24,7 @@ function verificarToken(req, res, next) {
       return res.status(401).json({ mensaje: "Token no válido" });
     } else {
       req.userId = decoded.userId;
+      req.userName = decoded.userName;
       next();
     }
   });
@@ -30,6 +32,7 @@ function verificarToken(req, res, next) {
 
 //Rutas
 app.use("/api/auth", authRoutes);
+app.use("/api/user", verificarToken, userRoutes);
 app.use("/api/notes", verificarToken, notesRoutes);
 
 //Puerto

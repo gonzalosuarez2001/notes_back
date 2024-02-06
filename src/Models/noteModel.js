@@ -17,8 +17,8 @@ const Note = sequelize.define(
       allowNull: false,
     },
     content: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING(1000),
+      allowNull: true,
     },
   },
   {

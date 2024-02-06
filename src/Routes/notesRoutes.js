@@ -2,25 +2,12 @@ const express = require("express");
 const router = express.Router();
 const noteController = require("../Controllers/noteController");
 
-router.get("/", async (req, res) => {
-  const user_id = req.userId;
-  const notes = await noteController.getNotes(user_id);
-  res.send(notes);
-});
+router.get("/", noteController.getNotes);
 
-router.post("/", async (req, res) => {
-  const createdNote = await noteController.addNote(req.userId, req.body.note);
-  res.send(createdNote);
-});
+router.post("/", noteController.addNote);
 
-router.patch("/", async (req, res) => {
-  const response = await noteController.updateNote(req.body.note);
-  res.send({ response });
-});
+router.patch("/", noteController.updateNote);
 
-router.delete("/", async (req, res) => {
-  const response = await noteController.deleteNote(req.body.id);
-  res.send({ response });
-});
+router.delete("/", noteController.deleteNote);
 
 module.exports = router;
