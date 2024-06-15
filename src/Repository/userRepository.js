@@ -1,12 +1,14 @@
+const bcrypt = require("bcrypt");
 const userModel = require("../Models/userModel");
 
-async function createUser(name, username, email, password) {
+async function createUser(username, email, password) {
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = {
-      name,
       username,
       email,
-      password: password,
+      password: hashedPassword,
     };
     const userCreated = await userModel.create(newUser);
     return userCreated;
@@ -20,12 +22,22 @@ async function validateUser(email, password) {
     const userFound = await userModel.findOne({
       where: {
         email: email,
-        password: password,
       },
     });
-    return userFound;
+    if (userFound) {
+      const passwordMatch = await bcrypt.compare(
+        password,
+        userFound.dataValues.password
+      );
+      if (passwordMatch) {
+        return userFound;
+      } else {
+        return null;
+      }
+    }
+    return null;
   } catch (error) {
-    console.error("No se pudo crear el usuario:", error);
+    console.error("No se pudo validar al usuario:", error);
   }
 }
 

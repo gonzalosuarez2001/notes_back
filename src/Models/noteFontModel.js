@@ -1,8 +1,8 @@
 const sequelize = require("../../config/dbconfig");
 const { DataTypes } = require("sequelize");
 
-const Note = sequelize.define(
-  "notes",
+const NoteFont = sequelize.define(
+  "note_fonts",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,19 +10,15 @@ const Note = sequelize.define(
       allowNull: false,
       autoIncrement: true,
     },
-    title: {
-      type: DataTypes.STRING(50),
+    font: {
+      type: DataTypes.STRING,
       allowNull: false,
-    },
-    content: {
-      type: DataTypes.STRING(1000),
-      allowNull: true,
     },
   },
   {
-    tableName: "notes",
+    tableName: "note_fonts",
     timestamps: false,
   }
 );
 
-module.exports = Note;
+module.exports = NoteFont;

@@ -1,0 +1,11 @@
+{
+  "development": {
+    "username": "gudunwmf",
+    "password": "7WKJspqlOfVsHSZ62Jo-dXpIXVnwNr5F",
+    "database": "gudunwmf",
+    "host": "drona.db.elephantsql.com",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "sequelize_data"
+  }
+}

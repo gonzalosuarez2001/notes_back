@@ -4,7 +4,7 @@ async function getNotes(user_id) {
   try {
     const notes = await noteModel.findAll({
       where: {
-        user_id: user_id,
+        userId: user_id,
       },
       order: [["id", "ASC"]],
     });
@@ -19,8 +19,7 @@ async function addNote(user_id, note) {
     const newNote = {
       title: note.title,
       content: note.content,
-      user_id: user_id,
-      color_id: "1",
+      userId: user_id,
     };
     const createdNote = await noteModel.create(newNote);
     return createdNote;

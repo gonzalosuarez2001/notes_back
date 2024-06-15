@@ -8,8 +8,7 @@ async function getNotes(req, res) {
       id: note.dataValues.id,
       title: note.dataValues.title,
       content: note.dataValues.content,
-      user_id: note.dataValues.user_id,
-      color_id: note.dataValues.color_id,
+      user_id: note.dataValues.userId,
     };
   });
 

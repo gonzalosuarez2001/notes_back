@@ -2,7 +2,7 @@ const sequelize = require("../../config/dbconfig");
 const { DataTypes } = require("sequelize");
 
 const NoteColor = sequelize.define(
-  "note_color",
+  "note_colors",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -16,7 +16,7 @@ const NoteColor = sequelize.define(
     },
   },
   {
-    tableName: "note_color",
+    tableName: "note_colors",
     timestamps: false,
   }
 );
