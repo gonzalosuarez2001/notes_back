@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-require("dotenv").config();
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
 const cronJob = require("./config/cron");
 const authRoutes = require("./src/Routes/authRoutes");
 const userRoutes = require("./src/Routes/userRoutes");
@@ -15,7 +15,7 @@ const app = express();
 
 //Config
 relateModels();
-cronJob.start();
+//cronJob.start();
 const corsOptions = {
   origin: URLFront,
   optionsSuccessStatus: 200,
