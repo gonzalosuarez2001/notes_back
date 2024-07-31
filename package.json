@@ -1,4 +1,9 @@
 {
+  "name": "notes_back",
+  "version": "1.0.0",
+  "engines": {
+    "node": "22.5.1"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development node app.js",
     "prd": "cross-env NODE_ENV=production node app.js"
